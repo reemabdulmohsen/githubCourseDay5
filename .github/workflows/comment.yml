@@ -12,7 +12,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export body=$(curl https://api.open-meteo.com/v1/forecast?latitude=24.4764&longitude=54.3705&hourly=temperature_2m)
-          export weather=$(echo $body | jq '.temperature')
+          export body=$(curl 'https://api.open-meteo.com/v1/forecast?latitude=24.4764&longitude=54.3705&hourly=temperature_2m')
+          export weather=$(echo $body | jq '.temperature_2m[0]')
           gh pr comment $PR_NUMBER --body "the temperature is: $weather" --repo $GITHUB_REPOSITORY
 
